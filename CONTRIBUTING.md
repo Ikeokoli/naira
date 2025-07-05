@@ -1,4 +1,4 @@
-RunNaira App - Contribution Guide
+Naira App - Contribution Guide
 Welcome to the RunNaira app project! To maintain quality and smooth collaboration, please follow these guidelines for your contributions.
 
 Branching Strategy

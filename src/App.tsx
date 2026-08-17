@@ -22,7 +22,9 @@ export function App() {
     [filters, sortOrder],
   );
   const summary = useMemo(() => summarisePayments(visibleRequests), [visibleRequests]);
-  const selectedRequest = paymentRequests.find((request) => request.id === selectedId);
+  const selectedRequest =
+    visibleRequests.find((request) => request.id === selectedId) ?? visibleRequests[0];
+  const visibleSelectedId = selectedRequest?.id ?? "";
 
   return (
     <div className="app-shell">
@@ -38,7 +40,11 @@ export function App() {
         <SummaryStrip summary={summary} />
         <FilterBar filters={filters} sortOrder={sortOrder} onFiltersChange={setFilters} onSortChange={setSortOrder} />
         <div className="workspace-grid">
-          <RequestList requests={visibleRequests} selectedId={selectedId} onSelect={setSelectedId} />
+          <RequestList
+            requests={visibleRequests}
+            selectedId={visibleSelectedId}
+            onSelect={setSelectedId}
+          />
           <RequestDetails request={selectedRequest} />
         </div>
       </main>

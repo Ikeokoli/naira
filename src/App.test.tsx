@@ -35,4 +35,24 @@ describe("RunNaira operations", () => {
     const queue = screen.getByRole("region", { name: "Payment requests" });
     expect(within(queue).getAllByRole("button")[0]).toHaveAccessibleName(/Kora Logistics/i);
   });
+
+  it("keeps the detail panel aligned with the visible request queue", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(screen.getByRole("combobox", { name: "Status" }), "Locked");
+
+    const queue = screen.getByRole("region", { name: "Payment requests" });
+    const firstVisibleRequest = within(queue).getByRole("button", { name: /Kora Logistics/i });
+    expect(firstVisibleRequest).toHaveAttribute("aria-pressed", "true");
+    expect(
+      screen.getByRole("complementary", { name: "Details for Kora Logistics" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("complementary", { name: "Details for Tola Adebayo" }),
+    ).not.toBeInTheDocument();
+
+    await user.type(screen.getByRole("searchbox", { name: "Search requests" }), "no match");
+    expect(screen.getByText("Select a visible request to review its release details.")).toBeInTheDocument();
+  });
 });

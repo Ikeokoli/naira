@@ -40,3 +40,15 @@ Do not push directly to main or dev.
 Always work in feature branches and use PRs.
 Follow commit message best practices.
 Keep your branches up to date by regularly pulling changes from dev.
+
+React quality checklist
+
+The supported application now lives in the root React package. Before opening a pull request:
+
+1. Install dependencies with `pnpm install --frozen-lockfile`.
+2. Preserve stable component identity and keep Hooks unconditional.
+3. Use semantic controls and visible labels for interactive behavior.
+4. Add user-level Vitest coverage for changed behavior.
+5. Run `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build`.
+
+The Flask files are retained as legacy prototype context and are not part of the active delivery pipeline.
